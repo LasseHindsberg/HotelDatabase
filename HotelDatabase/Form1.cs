@@ -22,16 +22,17 @@ namespace HotelDatabase
         {
             string connectionString;
             SqlConnection cnn;
-            connectionString = @"Data Source=localhost;Initial Catalog=master;Integrated Security=True";
+            connectionString = @"Data Source=localhost;Initial Catalog=TrainingDatabase;Integrated Security=True";
             cnn = new SqlConnection(connectionString);
 
             cnn.Open();
+            MessageBox.Show("Connection Open !");
             SqlCommand command;
             SqlDataReader dataReader;
             SqlDataAdapter adapter = new SqlDataAdapter();
             string sql, Output = "";
 
-            sql = "Select Hotel_No, Name, Address from DemoHotel";
+            sql = "Select Facility_No, Name from dbo.Facilities";
 
             command = new SqlCommand(sql, cnn);
             adapter.InsertCommand = new SqlCommand(sql, cnn);
@@ -41,8 +42,9 @@ namespace HotelDatabase
 
             while (dataReader.Read())
             {
-                Output = Output + dataReader.GetValue(0) + " - " + dataReader.GetValue(1) + dataReader.GetValue(2) + "\n";
+                Output = Output + dataReader.GetValue(0) + " - " + dataReader.GetValue(1) + "\n";
             }
+            MessageBox.Show(Output);
             dataReader.Close();
             command.Dispose();
             cnn.Close();
